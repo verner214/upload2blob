@@ -1,4 +1,9 @@
-/* node server.js */
+/* node server.js
+  webbserver som tillåter uppladdning av filer till azure storage
+  dessa environment variabler måste sättas innan servern startas:
+set AZURE_STORAGE_ACCOUNT=portalvhdsgfh152bhy290k
+set AZURE_STORAGE_ACCESS_KEY=blSI3p0IIYZJkojYyc27+5Jm82TmjaYbjEthG+f8fTT615DVeBJ2MMc3gNPyW5dSRaPpeWa2cJ/NE7ypqWTvkw==
+  */
 var express = require("express");
 var multiparty = require("multiparty");
 var azure = require("azure-storage");
@@ -24,7 +29,7 @@ app.post('/upload', function (req, res) {
             var size = part.byteCount - part.byteOffset;
             var name = part.filename;
 
-            blobService.createBlockBlobFromStream('c', name, part, size, function(error) {
+            blobService.createBlockBlobFromStream('mycontainer', name, part, size, function(error) {
                 if (error) {
                     res.send({ Grrr: error });
                 }
@@ -34,7 +39,7 @@ app.post('/upload', function (req, res) {
         }
     });
     form.parse(req);
-    res.send('OK');
+    //res.send('OK');
 });
 
 app.listen(3000);
