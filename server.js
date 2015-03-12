@@ -38,8 +38,9 @@ app.post('/upload', function (req, res) {
                     //res.send('inget gick fel när blob skapades! nu lista innehåll');
                     blobService.listBlobsSegmented(containerName, null, function (error, result, response) {
                         if (!error) {
-                            res.send('inget gick fel när blob listades!');
-                            console.log(JSON.stringify(result));
+                            res.send(JSON.stringify(result));
+                            //res.send('inget gick fel när blob listades2!');
+                            //console.log(JSON.stringify(result));
                             //console.log(result);
                         }
                         else {
